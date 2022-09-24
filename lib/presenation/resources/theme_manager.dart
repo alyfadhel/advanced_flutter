@@ -1,8 +1,9 @@
-import 'package:advanced_flutter_arabic/presenation/color_manager.dart';
-import 'package:advanced_flutter_arabic/presenation/font_manager.dart';
-import 'package:advanced_flutter_arabic/presenation/styles_manager.dart';
-import 'package:advanced_flutter_arabic/presenation/values_manager.dart';
+import 'package:advanced_flutter_arabic/presenation/resources/color_manager.dart';
+import 'package:advanced_flutter_arabic/presenation/resources/styles_manager.dart';
+import 'package:advanced_flutter_arabic/presenation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+
+import 'font_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(

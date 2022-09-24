@@ -1,4 +1,4 @@
-import 'package:advanced_flutter_arabic/presenation/theme_manager.dart';
+import 'package:advanced_flutter_arabic/presenation/resources/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
