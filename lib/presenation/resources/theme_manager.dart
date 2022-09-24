@@ -13,6 +13,7 @@ ThemeData getApplicationTheme() {
     primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.grey1,
     splashColor: ColorManager.lightPrimary,
+
     // card view theme
     cardTheme: CardTheme(
       color: ColorManager.white,
