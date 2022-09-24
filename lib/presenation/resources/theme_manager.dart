@@ -2,6 +2,7 @@ import 'package:advanced_flutter_arabic/presenation/resources/color_manager.dart
 import 'package:advanced_flutter_arabic/presenation/resources/styles_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'font_manager.dart';
 
@@ -13,7 +14,6 @@ ThemeData getApplicationTheme() {
     primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.grey1,
     splashColor: ColorManager.lightPrimary,
-
     // card view theme
     cardTheme: CardTheme(
       color: ColorManager.white,
@@ -22,6 +22,10 @@ ThemeData getApplicationTheme() {
     ),
     // app bar theme
     appBarTheme: AppBarTheme(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
       centerTitle: true,
       color: ColorManager.primary,
       elevation: AppSize.s4,
@@ -52,13 +56,17 @@ ThemeData getApplicationTheme() {
     ),
     // text theme
     textTheme: TextTheme(
-      displayLarge: getLightStyle(
-          color: ColorManager.white,
+      displayLarge: getSemiBoldStyle(
+          color: ColorManager.darkGrey,
         fontSize: FontSize.s22,
       ),
       headlineLarge: getSemiBoldStyle(
         color: ColorManager.darkGrey,
         fontSize: FontSize.s16,
+      ),
+      headlineMedium: getRegularStyle(
+          color: ColorManager.darkGrey,
+          fontSize: FontSize.s14,
       ),
       titleMedium: getMediumStyle(
         color: ColorManager.lightGrey,
