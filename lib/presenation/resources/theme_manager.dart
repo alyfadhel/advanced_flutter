@@ -19,7 +19,6 @@ ThemeData getApplicationTheme() {
       shadowColor: ColorManager.grey,
       elevation: AppSize.s4,
     ),
-
     // app bar theme
     appBarTheme: AppBarTheme(
       centerTitle: true,
@@ -31,14 +30,12 @@ ThemeData getApplicationTheme() {
         color: ColorManager.white,
       ),
     ),
-
     // button theme
     buttonTheme: ButtonThemeData(
         shape: const StadiumBorder(),
         disabledColor: ColorManager.grey1,
         buttonColor: ColorManager.primary,
         splashColor: ColorManager.lightPrimary),
-
     //elevate button theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -52,7 +49,6 @@ ThemeData getApplicationTheme() {
         ),
       ),
     ),
-
     // text theme
     textTheme: TextTheme(
       displayLarge: getLightStyle(
@@ -70,10 +66,8 @@ ThemeData getApplicationTheme() {
       bodyLarge: getRegularStyle(color: ColorManager.grey1,),
       bodySmall: getRegularStyle(
           color: ColorManager.grey,
-
       ),
     ),
-
     // input decoration theme(text form field)
     inputDecorationTheme:  InputDecorationTheme(
       //content padding
