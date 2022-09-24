@@ -5,6 +5,8 @@ import 'package:advanced_flutter_arabic/presenation/resources/color_manager.dart
 import 'package:advanced_flutter_arabic/presenation/resources/routes_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../resources/constants_manager.dart';
+
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
   navigateToOnBoarding(context)async
@@ -30,7 +32,7 @@ class _SplashViewState extends State<SplashView> {
 
   navigateToOnBoarding() async {
     await Future.delayed(
-      const Duration(seconds: 5),
+      const Duration(seconds: AppConstants.splashDelay),
           () {
         Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
       },
@@ -47,6 +49,4 @@ class _SplashViewState extends State<SplashView> {
       ),
     );
   }
-
-
 }
