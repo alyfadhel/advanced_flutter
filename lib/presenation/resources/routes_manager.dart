@@ -1,7 +1,7 @@
 import 'package:advanced_flutter_arabic/presenation/forget_password/forget_password_view.dart';
 import 'package:advanced_flutter_arabic/presenation/login/login_view.dart';
 import 'package:advanced_flutter_arabic/presenation/main/main_view.dart';
-import 'package:advanced_flutter_arabic/presenation/on_boarding/on_boarding_view.dart';
+import 'package:advanced_flutter_arabic/presenation/on_boarding/view/on_boarding_view.dart';
 import 'package:advanced_flutter_arabic/presenation/register/register_view.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/strings_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/splash/splash_view.dart';

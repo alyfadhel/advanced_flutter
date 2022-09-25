@@ -1,3 +1,4 @@
+import 'package:advanced_flutter_arabic/presenation/on_boarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/color_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/constants_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/routes_manager.dart';
@@ -8,43 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../resources/assets_manager.dart';
-import '../resources/font_manager.dart';
-
-var _pageController = PageController();
-
-class OnBoarding {
-  final String title;
-  final String subTitle;
-  final String image;
-
-  OnBoarding(
-      {required this.title, required this.subTitle, required this.image});
-}
-
-List<OnBoarding> boarding = [
-  OnBoarding(
-    title: AppStrings.onBoardingTitle1,
-    subTitle: AppStrings.onBoardingSubTitle1,
-    image: ImageAssets.onBoardingLogo1,
-  ),
-  OnBoarding(
-    title: AppStrings.onBoardingTitle2,
-    subTitle: AppStrings.onBoardingSubTitle2,
-    image: ImageAssets.onBoardingLogo2,
-  ),
-  OnBoarding(
-    title: AppStrings.onBoardingTitle3,
-    subTitle: AppStrings.onBoardingSubTitle3,
-    image: ImageAssets.onBoardingLogo3,
-  ),
-  OnBoarding(
-    title: AppStrings.onBoardingTitle4,
-    subTitle: AppStrings.onBoardingSubTitle4,
-    image: ImageAssets.onBoardingLogo4,
-  ),
-];
-int _currentIndex = 0;
+import '../../../domain/models/models.dart';
+import '../../resources/assets_manager.dart';
+import '../../resources/font_manager.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({Key? key}) : super(key: key);
@@ -54,63 +21,88 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
+  final PageController _pageController = PageController();
+  OnBoardingViewModel viewModel = OnBoardingViewModel();
+
+  _bind()
+  {
+    viewModel.start();
+  }
+
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      appBar: AppBar(
-        elevation: AppSize.s0,
+    return StreamBuilder(
+        stream: viewModel.outputSliderViewObject,
+        builder: (context, snapshot){
+          return _getContentWidget(snapshot.data);
+        },);
+  }
+
+  Widget _getContentWidget(SliderViewObject? sliderViewObject)
+  {
+    if(sliderViewObject == null){
+     return Container();
+    }else{
+      return Scaffold(
         backgroundColor: ColorManager.white,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p20),
+        appBar: AppBar(
+          elevation: AppSize.s0,
+          backgroundColor: ColorManager.white,
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppPadding.p20),
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      viewModel.onPageChanged(index);
+                    },
+                    itemBuilder: (context, index) =>
+                        BuildOnBoarding(model: sliderViewObject.sliderObject),
+                    itemCount: sliderViewObject.numOfSlides,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        bottomSheet: Container(
+          color: ColorManager.white,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: PageView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
                   },
-                  itemBuilder: (context, index) =>
-                      BuildOnBoarding(model: boarding[index]),
-                  itemCount: boarding.length,
+                  child: Text(
+                    AppStrings.skip,
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
               ),
+              _getBottomSheetWidget(sliderViewObject),
             ],
           ),
         ),
-      ),
-      bottomSheet: Container(
-        color: ColorManager.white,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, Routes.loginRoute);
-                },
-                child: Text(
-                  AppStrings.skip,
-                  textAlign: TextAlign.end,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-            ),
-            _getBottomSheetWidget(),
-          ],
-        ),
-      ),
-    );
+      );
+    }
   }
 
-  Widget _getBottomSheetWidget() {
+  Widget _getBottomSheetWidget(SliderViewObject sliderViewObject) {
     return Container(
       width: AppSize.sInfinity,
       color: ColorManager.primary,
@@ -130,7 +122,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               onTap: ()
               {
                 _pageController.animateToPage(
-                    _getPreviousIndex(),
+                    viewModel.goPrevious(),
                     duration: const Duration(microseconds: AppConstants.sliderAnimationTime),
                     curve: Curves.bounceInOut);
               },
@@ -138,9 +130,9 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           ),
           Row(
             children: [
-              for(int i=0 ; i<boarding.length; i++)
+              for(int i=0 ; i<sliderViewObject.numOfSlides; i++)
                  Padding(padding: const EdgeInsets.all(AppPadding.p8,),
-                  child: _getProperCircle(i),
+                  child: _getProperCircle(i,sliderViewObject.currentIndex),
                 ),
             ],
           ),
@@ -157,7 +149,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               onTap: ()
               {
                 _pageController.animateToPage(
-                    _getNextIndex(),
+                    viewModel.goNext(),
                     duration: const Duration(microseconds: AppConstants.sliderAnimationTime),
                     curve: Curves.bounceInOut,
                 );
@@ -168,39 +160,27 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       ),
     );
   }
-  int _getPreviousIndex()
+
+
+
+  Widget _getProperCircle(int index, int currentIndex)
   {
-    int previousIndex = --_currentIndex;
-    if(previousIndex == -1){
-      previousIndex = boarding.length -1;
-    }
-    return previousIndex;
-  }
-
-  int _getNextIndex()
-  {
-    int nextIndex = ++_currentIndex;
-    if(nextIndex == boarding.length){
-      nextIndex = 0;
-    }
-    return nextIndex;
-  }
-
-
-
-  Widget _getProperCircle(int index)
-  {
-    if(index == _currentIndex){
+    if(index == currentIndex){
       return SvgPicture.asset(ImageAssets.hollowCircle);
     }else{
       return SvgPicture.asset(ImageAssets.solidCircle);
     }
   }
+
+  @override
+  void dispose() {
+    viewModel.dispose();
+    super.dispose();
+  }
 }
 
 class BuildOnBoarding extends StatelessWidget {
-  final OnBoarding model;
-
+  final SliderObject model;
   const BuildOnBoarding({Key? key, required this.model}) : super(key: key);
 
   @override
