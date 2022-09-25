@@ -101,9 +101,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 child: Text(
                   AppStrings.skip,
                   textAlign: TextAlign.end,
-                  style: TextStyle(
-                    color: ColorManager.primary,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
             ),
