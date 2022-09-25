@@ -1,4 +1,5 @@
 import 'package:advanced_flutter_arabic/presenation/resources/color_manager.dart';
+import 'package:advanced_flutter_arabic/presenation/resources/constants_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/routes_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/strings_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/styles_manager.dart';
@@ -119,7 +120,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         children: [
           Padding(
             padding: const EdgeInsets.all(
-              AppPadding.p14,
+              AppPadding.p16,
             ),
             child: GestureDetector(
               child: SizedBox(
@@ -127,6 +128,13 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 height: AppSize.s20,
                 child: SvgPicture.asset(ImageAssets.leftArrow),
               ),
+              onTap: ()
+              {
+                _pageController.animateToPage(
+                    _getPreviousIndex(),
+                    duration: const Duration(milliseconds: AppConstants.sliderAnimationTime),
+                    curve: Curves.bounceInOut);
+              },
             ),
           ),
           Row(
@@ -139,7 +147,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           ),
           Padding(
             padding: const EdgeInsets.all(
-              AppPadding.p14,
+              AppPadding.p16,
             ),
             child: GestureDetector(
               child: SizedBox(
@@ -147,12 +155,40 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 height: AppSize.s20,
                 child: SvgPicture.asset(ImageAssets.rightArrow),
               ),
+              onTap: ()
+              {
+                _pageController.animateToPage(
+                    _getNextIndex(),
+                    duration: const Duration(milliseconds: AppConstants.sliderAnimationTime),
+                    curve: Curves.bounceInOut,
+                );
+              },
             ),
           ),
         ],
       ),
     );
   }
+  int _getPreviousIndex()
+  {
+    int previousIndex = _currentIndex--;
+    if(previousIndex == -1){
+      previousIndex = boarding.length -1;
+    }
+    return previousIndex;
+  }
+
+  int _getNextIndex()
+  {
+    int nextIndex = _currentIndex++;
+    if(nextIndex == boarding.length){
+      nextIndex = 0;
+    }
+    return nextIndex;
+  }
+
+
+
   Widget _getProperCircle(int index)
   {
     if(index == _currentIndex){
