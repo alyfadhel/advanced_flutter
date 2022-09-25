@@ -1,4 +1,5 @@
 import 'package:advanced_flutter_arabic/presenation/resources/color_manager.dart';
+import 'package:advanced_flutter_arabic/presenation/resources/routes_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/strings_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/styles_manager.dart';
 import 'package:advanced_flutter_arabic/presenation/resources/values_manager.dart';
@@ -43,6 +44,7 @@ List<OnBoarding> boarding = [
   ),
 ];
 int _currentIndex = 0;
+
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({Key? key}) : super(key: key);
 
@@ -68,13 +70,13 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 child: PageView.builder(
                   physics: const BouncingScrollPhysics(),
                   controller: _pageController,
-                  onPageChanged: (index)
-                  {
+                  onPageChanged: (index) {
                     setState(() {
                       _currentIndex = index;
                     });
                   },
-                  itemBuilder: (context, index) => BuildOnBoarding(model: boarding[index]),
+                  itemBuilder: (context, index) =>
+                      BuildOnBoarding(model: boarding[index]),
                   itemCount: boarding.length,
                 ),
               ),
@@ -92,24 +94,80 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: (){},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                },
                 child: const Text(
-                AppStrings.skip,
-                textAlign: TextAlign.end,
-              ),
+                  AppStrings.skip,
+                  textAlign: TextAlign.end,
+                ),
               ),
             ),
+            _getBottomSheetWidget(),
           ],
         ),
       ),
     );
   }
+
+  Widget _getBottomSheetWidget() {
+    return Container(
+      width: AppSize.sInfinity,
+      color: ColorManager.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(
+              AppPadding.p14,
+            ),
+            child: GestureDetector(
+              child: SizedBox(
+                width: AppSize.s20,
+                height: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.leftArrow),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              for(int i=0 ; i<boarding.length; i++)
+                 Padding(padding: const EdgeInsets.all(AppPadding.p8,),
+                  child: _getProperCircle(i),
+                ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(
+              AppPadding.p14,
+            ),
+            child: GestureDetector(
+              child: SizedBox(
+                width: AppSize.s20,
+                height: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.rightArrow),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _getProperCircle(int index)
+  {
+    if(index == _currentIndex){
+      return SvgPicture.asset(ImageAssets.hollowCircle);
+    }else{
+      return SvgPicture.asset(ImageAssets.solidCircle);
+    }
+  }
 }
 
-
 class BuildOnBoarding extends StatelessWidget {
- final OnBoarding model;
-  const BuildOnBoarding({Key? key,required this.model}) : super(key: key);
+  final OnBoarding model;
+
+  const BuildOnBoarding({Key? key, required this.model}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -134,4 +192,3 @@ class BuildOnBoarding extends StatelessWidget {
     );
   }
 }
-
