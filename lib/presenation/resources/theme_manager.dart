@@ -57,7 +57,7 @@ ThemeData getApplicationTheme() {
     // text theme
     textTheme: TextTheme(
       displayLarge: getSemiBoldStyle(
-          color: ColorManager.darkGrey,
+        color: ColorManager.darkGrey,
         fontSize: FontSize.s22,
       ),
       headlineLarge: getSemiBoldStyle(
@@ -65,25 +65,27 @@ ThemeData getApplicationTheme() {
         fontSize: FontSize.s16,
       ),
       headlineMedium: getRegularStyle(
-          color: ColorManager.darkGrey,
-          fontSize: FontSize.s14,
+        color: ColorManager.darkGrey,
+        fontSize: FontSize.s14,
       ),
       titleMedium: getMediumStyle(
         color: ColorManager.lightGrey,
         fontSize: FontSize.s14,
       ),
-      bodyLarge: getRegularStyle(color: ColorManager.grey1,),
+      bodyLarge: getRegularStyle(
+        color: ColorManager.grey1,
+      ),
       bodySmall: getRegularStyle(
-          color: ColorManager.grey,
+        color: ColorManager.grey,
       ),
     ),
     // input decoration theme(text form field)
-    inputDecorationTheme:  InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       //content padding
       contentPadding: const EdgeInsets.all(AppPadding.p8),
       //hint style
       hintStyle: getRegularStyle(
-          color: ColorManager.grey,
+        color: ColorManager.grey,
         fontSize: FontSize.s14,
       ),
       //label style

@@ -4,6 +4,7 @@ import 'package:advanced_flutter_arabic/presenation/resources/styles_manager.dar
 import 'package:advanced_flutter_arabic/presenation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../resources/assets_manager.dart';
 import '../resources/font_manager.dart';
@@ -65,6 +66,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             children: [
               Expanded(
                 child: PageView.builder(
+                  physics: const BouncingScrollPhysics(),
                   controller: _pageController,
                   onPageChanged: (index)
                   {
@@ -78,6 +80,26 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               ),
             ],
           ),
+        ),
+      ),
+      bottomSheet: Container(
+        color: ColorManager.white,
+        height: AppSize.s100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: (){},
+                child: const Text(
+                AppStrings.skip,
+                textAlign: TextAlign.end,
+              ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -107,9 +129,7 @@ class BuildOnBoarding extends StatelessWidget {
         const SizedBox(
           height: AppSize.s20,
         ),
-        Image(
-          image: AssetImage(model.image),
-        ),
+        SvgPicture.asset(model.image),
       ],
     );
   }

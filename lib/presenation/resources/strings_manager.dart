@@ -5,6 +5,7 @@ class AppStrings
   static const String onBoardingTitle2 = 'SEE THE BEST COURSE #2';
   static const String onBoardingTitle3 = 'SEE THE BEST COURSE #3';
   static const String onBoardingTitle4 = 'SEE THE BEST COURSE #4';
+  static const String skip = 'Skip';
 
   static const String onBoardingSubTitle1 =
       'Tut app is awesome flutter application using clean architecture #1';
