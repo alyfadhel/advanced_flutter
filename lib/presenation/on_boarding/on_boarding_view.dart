@@ -87,10 +87,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       ),
       bottomSheet: Container(
         color: ColorManager.white,
-        height: AppSize.s100,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Align(
               alignment: Alignment.centerRight,
@@ -172,7 +170,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   }
   int _getPreviousIndex()
   {
-    int previousIndex = _currentIndex--;
+    int previousIndex = --_currentIndex;
     if(previousIndex == -1){
       previousIndex = boarding.length -1;
     }
@@ -181,7 +179,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   int _getNextIndex()
   {
-    int nextIndex = _currentIndex++;
+    int nextIndex = ++_currentIndex;
     if(nextIndex == boarding.length){
       nextIndex = 0;
     }
