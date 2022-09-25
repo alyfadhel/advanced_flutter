@@ -59,7 +59,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: AppBar(
-        elevation: 0.0,
+        elevation: AppSize.s0,
         backgroundColor: ColorManager.white,
       ),
       body: Center(
@@ -98,9 +98,12 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, Routes.loginRoute);
                 },
-                child: const Text(
+                child: Text(
                   AppStrings.skip,
                   textAlign: TextAlign.end,
+                  style: TextStyle(
+                    color: ColorManager.primary,
+                  ),
                 ),
               ),
             ),
@@ -132,7 +135,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               {
                 _pageController.animateToPage(
                     _getPreviousIndex(),
-                    duration: const Duration(milliseconds: AppConstants.sliderAnimationTime),
+                    duration: const Duration(microseconds: AppConstants.sliderAnimationTime),
                     curve: Curves.bounceInOut);
               },
             ),
@@ -159,7 +162,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               {
                 _pageController.animateToPage(
                     _getNextIndex(),
-                    duration: const Duration(milliseconds: AppConstants.sliderAnimationTime),
+                    duration: const Duration(microseconds: AppConstants.sliderAnimationTime),
                     curve: Curves.bounceInOut,
                 );
               },
